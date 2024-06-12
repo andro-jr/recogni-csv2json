@@ -17,20 +17,20 @@ csv()
         tensorParallelism: Number(Object.values(row)[3]),
         model: Object.values(row)[4],
         recogni: {
-          "Latency [ms]": Number(Object.values(row)[5]),
+          Latency: Number(Object.values(row)[5]),
           "Images/Sec": Number(Object.values(row)[6]),
           "Images/Sec/User": Number(Object.values(row)[7]),
-          "Total Power Consumption [W]": Number(Object.values(row)[8]),
-          "TCO [$/Image]": Number(Object.values(row)[9]),
-          "Efficiency [TFLOPS/W]": Number(Object.values(row)[10]),
+          "Total Power Consumption": Number(Object.values(row)[8]),
+          TCO: Number(Object.values(row)[9]),
+          Efficiency: Number(Object.values(row)[10]),
         },
         competitor: {
-          "Latency [ms]": Number(Object.values(row)[11]),
+          Latency: Number(Object.values(row)[11]),
           "Images/Sec": Number(Object.values(row)[12]),
           "Images/Sec/User": Number(Object.values(row)[13]),
-          "Total Power Consumption [W]": Number(Object.values(row)[14]),
-          "TCO [$/Image]": Number(Object.values(row)[15]),
-          "Efficiency [TFLOPS/W]": Number(Object.values(row)[16]),
+          "Total Power Consumption": Number(Object.values(row)[14]),
+          TCO: Number(Object.values(row)[15]),
+          Efficiency: Number(Object.values(row)[16]),
         },
       };
     });
