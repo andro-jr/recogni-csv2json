@@ -4,12 +4,13 @@ const path = require("path");
 
 const dmFilePath = path.join(__dirname, "csv/diffusionModel.csv");
 const llmCsvPath = path.join(__dirname, "csv/largelanguagemodel.csv");
+const prmoptsCsvPath = path.join(__dirname, "csv/prompts.csv");
 
-// Convert CSV to JSON
+// Convert DM CSV to JSON
 csv()
   .fromFile(dmFilePath)
   .then((jsonObj) => {
-    // Define the JSON structure based on the actual column names in your CSV file
+    // Defining the JSON structure based on the actual column names CSV file
     const structuredData = jsonObj.slice(1).map((row) => {
       return {
         prompt: Number(Object.values(row)[1]),
@@ -39,7 +40,6 @@ csv()
       diffusionModel: structuredData,
     };
 
-    // Write the structured data to a JSON file
     fs.writeFileSync(
       "json/diffusionModel.json",
       JSON.stringify(wrappedData, null, 2)
@@ -52,6 +52,7 @@ csv()
     console.error("1) Error converting DiffusionModel CSV CSV to JSON:", error);
   });
 
+// Convert LLM CSV to JSON
 csv()
   .fromFile(llmCsvPath)
   .then((jsonObj) => {
@@ -87,7 +88,6 @@ csv()
       largeLanguageModel: structuredData,
     };
 
-    // Write the structured data to a JSON file
     fs.writeFileSync(
       "json/largeLanguageModel.json",
       JSON.stringify(wrappedData, null, 2)
@@ -98,4 +98,31 @@ csv()
   })
   .catch((error) => {
     console.error("2) Error converting LargeLanguageModel CSV to JSON:", error);
+  });
+
+// Convert Prompts CSV to JSON
+csv()
+  .fromFile(prmoptsCsvPath)
+  .then((jsonObj) => {
+    // Define the JSON structure based on the actual column names in your CSV file
+    const structuredData = jsonObj
+      .filter((row) => Number(Object.values(row)[0]) !== 0)
+      .map((row) => {
+        return {
+          id: Number(Object.values(row)[0]),
+          prompt: Object.values(row)[1],
+          type: Object.values(row)[2],
+          output: Object.values(row)[3],
+        };
+      });
+
+    const wrappedData = {
+      prompts: structuredData,
+    };
+
+    fs.writeFileSync("json/prompts.json", JSON.stringify(wrappedData, null, 2));
+    console.log("2) Prompts CSV data has been converted to JSON successfully.");
+  })
+  .catch((error) => {
+    console.error("2) Error converting Prompts CSV to JSON:", error);
   });
