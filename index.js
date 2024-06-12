@@ -5,11 +5,14 @@ const path = require("path");
 const INPUT_ROOT_DIR = "csv";
 const OUTPUT_ROOT_DIR = "json";
 
-const dmFilePath = path.join(__dirname, "csv/diffusionModel.csv");
-const llmCsvPath = path.join(__dirname, "csv/largelanguagemodel.csv");
-const prmoptsCsvPath = path.join(__dirname, "csv/prompts.csv");
-const modelsCsvPath = path.join(__dirname, "csv/models.csv");
-const paramsCsvPath = path.join(__dirname, "csv/parameters.csv");
+const dmFilePath = path.join(__dirname, `${INPUT_ROOT_DIR}/diffusionModel.csv`);
+const llmCsvPath = path.join(
+  __dirname,
+  `${INPUT_ROOT_DIR}/largelanguagemodel.csv`
+);
+const prmoptsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/prompts.csv`);
+const modelsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/models.csv`);
+const paramsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/parameters.csv`);
 
 // Convert DM CSV to JSON
 csv()
@@ -50,11 +53,11 @@ csv()
       JSON.stringify(wrappedData, null, 2)
     );
     console.log(
-      "1) DiffusionModel CSV data has been converted to JSON successfully."
+      "** DiffusionModel CSV data has been converted to JSON successfully."
     );
   })
   .catch((error) => {
-    console.error("1) Error converting DiffusionModel CSV CSV to JSON:", error);
+    console.error("** Error converting DiffusionModel CSV CSV to JSON:", error);
   });
 
 // Convert LLM CSV to JSON
@@ -98,11 +101,11 @@ csv()
       JSON.stringify(wrappedData, null, 2)
     );
     console.log(
-      "2) LargeLanguageModel CSV data has been converted to JSON successfully."
+      "** LargeLanguageModel CSV data has been converted to JSON successfully."
     );
   })
   .catch((error) => {
-    console.error("2) Error converting LargeLanguageModel CSV to JSON:", error);
+    console.error("** Error converting LargeLanguageModel CSV to JSON:", error);
   });
 
 // Convert Models CSV to JSON
@@ -129,10 +132,10 @@ csv()
       `${OUTPUT_ROOT_DIR}/prompts.json`,
       JSON.stringify(wrappedData, null, 2)
     );
-    console.log("2) Prompts CSV data has been converted to JSON successfully.");
+    console.log("** Prompts CSV data has been converted to JSON successfully.");
   })
   .catch((error) => {
-    console.error("2) Error converting Prompts CSV to JSON:", error);
+    console.error("** Error converting Prompts CSV to JSON:", error);
   });
 
 // Convert Parameters CSV to JSON
@@ -157,11 +160,12 @@ csv()
       `${OUTPUT_ROOT_DIR}/models.json`,
       JSON.stringify(wrappedData, null, 2)
     );
-    console.log("2) Models CSV data has been converted to JSON successfully.");
+    console.log("** Models CSV data has been converted to JSON successfully.");
   })
   .catch((error) => {
-    console.error("2) Error converting Models CSV to JSON:", error);
+    console.error("** Error converting Models CSV to JSON:", error);
   });
+
 // Convert Prompts CSV to JSON
 csv()
   .fromFile(paramsCsvPath)
@@ -196,9 +200,9 @@ csv()
       JSON.stringify(wrappedData, null, 2)
     );
     console.log(
-      "2) Parameters CSV data has been converted to JSON successfully."
+      "** Parameters CSV data has been converted to JSON successfully."
     );
   })
   .catch((error) => {
-    console.error("2) Error converting Parameters CSV to JSON:", error);
+    console.error("** Error converting Parameters CSV to JSON:", error);
   });
