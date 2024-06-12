@@ -1,4 +1,5 @@
 node_modules
-diffusionModel
-diffusionModel.data.json
-output.json
+
+*.csv
+*.data.json
+*.json
