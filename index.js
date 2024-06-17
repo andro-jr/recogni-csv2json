@@ -13,6 +13,7 @@ const llmCsvPath = path.join(
 const prmoptsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/prompts.csv`);
 const modelsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/models.csv`);
 const paramsCsvPath = path.join(__dirname, `${INPUT_ROOT_DIR}/parameters.csv`);
+const sliderCsv = path.join(__dirname, `${INPUT_ROOT_DIR}/slider.csv`);
 
 // Convert DM CSV to JSON
 csv()
@@ -205,4 +206,35 @@ csv()
   })
   .catch((error) => {
     console.error("** Error converting Parameters CSV to JSON:", error);
+  });
+
+csv()
+  .fromFile(sliderCsv)
+  .then((jsonObj) => {
+    // Defining the JSON structure based on the actual column names CSV file
+    const structuredData = jsonObj.slice(1).map((row) => {
+      return {
+        inputToken: Number(Object.values(row)[0]),
+        outputToken: Number(Object.values(row)[1]),
+        batchSize: Number(Object.values(row)[2]),
+        tensorParallelism: Number(Object.values(row)[3]),
+        model: Object.values(row)[4],
+        TTFT: Number(Object.values(row)[5]),
+        TPOT: Number(Object.values(row)[6]),
+        "Tokens/Sec": Number(Object.values(row)[7]),
+        "Tokens/Sec/User": Number(Object.values(row)[8]),
+        "Total Power Consumption": Number(Object.values(row)[9]),
+        TCO: Number(Object.values(row)[10]),
+        Efficiency: Number(Object.values(row)[11]),
+      };
+    });
+
+    fs.writeFileSync(
+      `${OUTPUT_ROOT_DIR}/slider.json`,
+      JSON.stringify(structuredData)
+    );
+    console.log("** Slider CSV data has been converted to JSON successfully.");
+  })
+  .catch((error) => {
+    console.error("** Error converting Slider CSV to JSON:", error);
   });
